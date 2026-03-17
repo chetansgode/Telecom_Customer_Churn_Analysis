@@ -1,0 +1,22 @@
+FROM python:3.13-slim
+
+#create file in docker system
+WORKDIR /app
+
+ENV PYTHONPATH=/app
+
+# 👉 Install curl (for healthcheck)
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# Copies requirements
+COPY DockerFile/requirements_fastapi.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements_fastapi.txt
+
+# Copy full project
+COPY . .
+
+EXPOSE 8000
+
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]

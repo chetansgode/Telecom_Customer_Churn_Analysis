@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+
+  fastapi:
+    build:
+      context: ..          #same folder so
+      dockerfile: DockerFile/Dockerfile.fastapi
+    image: chetansgode/project-2-telecom_customer_churn_analysis_fastapi:latest #to get name of image like this
+    ports:
+      - "8000:8000"
+    restart: always
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  streamlit:
+    build:
+      context: ..       #same folder so  go to parent folder (project root)
+      dockerfile: DockerFile/Dockerfile.streamlit
+    image: chetansgode/project-2-telecom_customer_churn_analysis_streamlit:latest  #to get 
+    ports:
+      - "8501:8501"
+    depends_on:
+      fastapi:
+        condition: service_healthy
+    restart: always
+
+    environment:
+      - API_URL=http://fastapi:8000             #for running on docker 

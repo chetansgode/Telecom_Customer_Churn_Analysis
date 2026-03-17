@@ -1,0 +1,13 @@
+FROM python:3.13-slim
+WORKDIR /app
+ENV PYTHONPATH=/app
+# correct path for requirements
+#Copies file from your system → inside container
+COPY DockerFile/requirements_streamlit.txt .
+
+#After copying, inside container it becomes:/app/requirements_streamlit.txt
+RUN pip install --no-cache-dir -r requirements_streamlit.txt
+#copy all file
+COPY . .
+EXPOSE 8501 
+CMD [ "streamlit","run","apps/streamlit.py","--server.port=8501","--server.address=0.0.0.0" ]
