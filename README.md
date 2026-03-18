@@ -226,7 +226,7 @@ PROJECT-2-TELECOM_CUSTOMER_CHURN_ANALYSIS
 
 2. Clone the repository
 
-   git clone https://github.com/chetansgode/Telcom_Customer_Churn_Analysis.git
+   git clone https://github.com/chetansgode/Telecom_Customer_Churn_Analysis.git
 3. Navigate to project folder
 
 +---DockerFile
